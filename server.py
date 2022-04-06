@@ -9,14 +9,13 @@ from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 CORS(app, support_credentials=True)
 
+# learner = load_learner(path='./models', file='')
+# classes = learn.data.classes
+
 
 def stringToRGB(base64_string):
     imageData = base64.b64decode(str(base64_string))
     return imageData
-
-
-# learner = load_learner(path='./models', file='')
-# classes = learn.data.classes
 
 # def predict_image(img_file):
 #     prediction = learn.predict(open_image(img_file))
@@ -26,12 +25,12 @@ def stringToRGB(base64_string):
 #         'probs': {c: round(float(probs_list[i]), 5) for (i, c) in enumerate(classes)}
 #     }
 
-@app.route('/prediction/', methods=['POST'])
-def predict():
-    return jsonify(predict_image(request.files['image']))
+# @app.route('/prediction/', methods=['POST'])
+# def predict():
+#     return jsonify(predict_image(request.files['image']))
 
 
-@app.route('/test', methods=['POST'])
+@app.route('/test/', methods=['POST'])
 def test():
     request_data = request.get_json()
 
@@ -40,4 +39,4 @@ def test():
 
 
 if __name__ == '__main__':
-    app.run(port=1105)
+    app.run(host='0.0.0.0', port=3000)
