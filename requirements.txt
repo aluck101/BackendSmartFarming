@@ -4,3 +4,4 @@ fastai
 torch
 base64
 pillow
+cv2

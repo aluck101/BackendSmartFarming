@@ -1,5 +1,5 @@
 
-from fastai.vision import open_image
+from fastai.vision.all import open_image
 from fastai.basic_train import load_learner
 
 from fastai import *
