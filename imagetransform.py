@@ -1,10 +1,10 @@
 import base64
-from PIL import Image
 import cv2 as cv
+from PIL import Image
 import numpy as np
 
 
-def stringToRGB(base64_string):
+def imgStringToRGB(base64_string):
     imageData = base64.b64decode(str(base64_string))
     return imageData
 
@@ -12,7 +12,7 @@ def stringToRGB(base64_string):
 def img_normalize(image):
     img = cv.imread(image)
     normImge = np.zeros((800, 800))
-    normalized_img = (img, normImge, 0, 255, cv.NORM_MINMAX)
+    normalized_img = cv.normalize(img, normImge, 0, 255, cv.NORM_MINMAX)
     return normalized_img
 
 

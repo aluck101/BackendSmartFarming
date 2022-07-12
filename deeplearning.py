@@ -1,18 +1,22 @@
 
-from fastai.vision.all import open_image
-from fastai.basic_train import load_learner
-
+from fastai.vision.all import *
 from fastai import *
 
+learn = load_learner('models/plant_detection_model.pkl')
 
-learn = load_learner(path='./models', file='')
-classes = learn.data.classes
+
+class NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return json.JSONEncoder.default(self, obj)
 
 
 def predict_image(img_file):
-    prediction = learn.predict(open_image(img_file))
-    probs_list = prediction[2].numpy()
+    label, _, probs = learn.predict(img_file)
+    classification = (label.split('/')[-1])
+    probability = (max(probs))
     return {
-        'category': classes[prediction[1].item()],
-        'probs': {c: round(float(probs_list[i]), 5) for (i, c) in enumerate(classes)}
+        'category': classification,
+        'probs': json.dumps(probability.numpy(), cls=NumpyEncoder)
     }

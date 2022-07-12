@@ -12,15 +12,12 @@ CORS(app, support_credentials=True)
 
 @app.route('/prediction/', methods=['POST'])
 def predict():
-    return jsonify(learn.predict_image(request.files['image']))
-
-
-@app.route('/test/', methods=['POST'])
-def test():
     request_data = request.get_json()
     base64image = request_data['img']
-    print(base64image)
-    return jsonify(base64image)
+    imgRGB = imgtrf.imgStringToRGB(base64image)
+    prediction = learn.predict_image(imgRGB)
+    print(prediction)
+    return jsonify(learn.predict_image(imgRGB))
 
 
 if __name__ == '__main__':
