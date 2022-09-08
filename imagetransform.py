@@ -1,6 +1,5 @@
 import base64
 import cv2 as cv
-from PIL import Image
 import numpy as np
 
 
@@ -20,5 +19,6 @@ def gradient_filter(image):
     depth = cv.CV_64F
     kernal_size = 5
     img = cv.imread(image)
+    img = cv.GaussianBlur(img, (3, 3), 0)
     lapl_img = cv.Laplacian(img, depth, ksize=kernal_size)
     return lapl_img

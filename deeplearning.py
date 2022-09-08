@@ -5,6 +5,7 @@ from fastai import *
 learn = load_learner('models/plant_detection_model.pkl')
 
 
+# This class is used to convert Numpy object to JSON Object
 class NumpyEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, np.ndarray):
